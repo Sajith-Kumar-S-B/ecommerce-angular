@@ -4,7 +4,7 @@
         <img class="img-fluid"  src="https://media.istockphoto.com/id/1281150061/fr/vectoriel/enregistrer-compte-soumettre-acc%C3%A8s-mot-de-passe-de-connexion-nom-dutilisateur-internet.jpg?b=1&s=612x612&w=0&k=20&c=nkGOUnsjeMNtjQ9SCEterGIj3BEeJ3_u-ObXw478pN8=" alt="">
       </div>
       <div class="col-lg-6">
-        <form >
+        <form [formGroup]="registerForm" (ngSubmit)="register()" >
             <h1 class="fw-bolder mb-5">Welcome User</h1>
             <div class="form-floating mb-3 ">
               
@@ -12,7 +12,7 @@
                 <label  for="floatingInput">Username</label>
               </div>
               <!-- validation username -->
-              <div  class="mb-3 fw-bolder text-danger">
+              <div *ngIf="this.registerForm.get('username')?.errors&&this.registerForm.get('username')?.touched"  class="mb-3 fw-bolder text-danger">
                 *Invalid UserName
               </div>
 
@@ -24,7 +24,7 @@
               </div>
               <!-- Invalid email -->
             
-              <div class="mb-3 fw-bolder text-danger">
+              <div *ngIf="this.registerForm.get('email')?.errors&&this.registerForm.get('email')?.touched"  class="mb-3 fw-bolder text-danger">
                 *Invalid email
               </div>
               <div class="form-floating mb-3 ">
@@ -34,7 +34,7 @@
               </div>
                <!-- Invalid password -->
                
-               <div class="mb-3 fw-bolder text-danger">
+               <div *ngIf="this.registerForm.get('password')?.errors&&this.registerForm.get('password')?.touched"  class="mb-3 fw-bolder text-danger">
                 *Invalid  Password
               </div>
               <div class="d-grid">
