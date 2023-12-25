@@ -13,14 +13,14 @@
             <button style="margin-left: -50px;" class="btn  my-2 my-sm-0" type="submit"><i class="fa-solid fa-search"></i></button></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-light" routerLink="user/wishlist">
-            <button class="btn btn-outline-dark"><i class="fa-solid fa-heart me-2 text-danger"></i>Wishlist <span class="bg-dark rounded px-2  text-light">0</span></button>
+          <a class="nav-link text-light" routerLink="/user/wishlist">
+            <button class="btn btn-outline-dark"><i class="fa-solid fa-heart me-2 text-danger"></i>Wishlist <span class="bg-dark rounded px-2  text-light">{{wishlistCount}}</span></button>
           </a>
         </li>
       
         <li class="nav-item active">
-          <a class="nav-link " routerLink="user/cart">
-            <button  class="btn btn-outline-dark"><i class="fa-solid fa-cart-shopping me-2 text-success"></i>Cart <span class="bg-dark rounded px-2 text-light">0</span></button>
+          <a class="nav-link " routerLink="/user/cart">
+            <button  class="btn btn-outline-dark"><i class="fa-solid fa-cart-shopping me-2 text-success"></i>Cart <span class="bg-dark rounded px-2 text-light">{{cartCount}}</span></button>
           </a>
         </li>
         <li *ngIf="!loginUsername" class="nav-item active d-flex align-items-center gap-1">
