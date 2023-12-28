@@ -1,4 +1,61 @@
 <app-header></app-header>
 
-<p>checkout works!</p>
+<div style="margin-top: 80px;" class="d-flex justify-content-center align-items-center flex-column">
+<div class="delivery w-50 mt-5">
+    <h1>Delivery Details</h1>
+    <form *ngIf="!proceedtoBuyStatus" [formGroup]="checkoutForm" (ngSubmit)="proceedToBuy()" class="mt-3 border rounded p-3">
+        <div class="form-floating mb-3">
+            <input class="form-control" id="floatingInput1" formControlName="uname" name="uname" placeholder="Username" type="text">
+            <label for="floatingInput1">Username</label>
+        </div>
+        <div *ngIf="this.checkoutForm.get('uname')?.errors&&this.checkoutForm.get('uname')?.touched"  class="mb-3  text-danger">
+            *Invalid UserName
+          </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="floatingInput2" formControlName="flat" name="flat" placeholder="Apartment Number" type="text">
+            <label for="floatingInput2">Apartment No.</label>
+        </div>
+        <div *ngIf="this.checkoutForm.get('flat')?.errors&&this.checkoutForm.get('flat')?.touched"  class="mb-3  text-danger">
+            *Invalid Address
+          </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="floatingInput3" formControlName="place" name="place" placeholder="Place" type="text">
+            <label for="floatingInput3">Place</label>
+        </div>
+        <div *ngIf="this.checkoutForm.get('place')?.errors&&this.checkoutForm.get('place')?.touched"  class="mb-3  text-danger">
+            *Invalid Location
+          </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="floatingInput4" formControlName="pincode" name="pincode" placeholder="Pincode" type="text">
+            <label for="floatingInput4">Pincode</label>
+        </div>
+        <div *ngIf="this.checkoutForm.get('pincode')?.errors&&this.checkoutForm.get('pincode')?.touched"  class="mb-3  text-danger">
+            *Invalid pin
+          </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <input (click)="cancel()" class="btn btn-outline-dark" value="Cancel" type="button">
+            <input   class="btn btn-outline-dark" value="Procced to Buy" type="submit">
+
+        </div>
+    </form>
+    <div *ngIf="proceedtoBuyStatus" class="border p-3 rounded">
+        <h4>Address</h4>
+        <h5>{{checkoutForm.value.uname}} </h5>
+        <span>{{checkoutForm.value.flat}}, </span>
+        <span>{{checkoutForm.value.place}} </span>
+        <h5>{{checkoutForm.value.pincode}} </h5>
+<hr>
+        <h4>Total Amount : <strong>$ {{totalAmount}} </strong> </h4>
+        <div *ngIf="!proceedToPaymentStatus" class="d-flex justify-content-between align-items-center mb-3">
+            <input (click)="back()" class="btn btn-outline-dark" value="Cancel" type="button">
+            <input (click)="proceedToPayment()"  class="btn btn-outline-dark" value="Proceed to Payment" type="button">
+
+        </div>
+        <div *ngIf="proceedToPaymentStatus" class="mt-3 paypal p-5">
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          
+        </div>
+    </div>
+</div>
+</div>
 <app-footer></app-footer>

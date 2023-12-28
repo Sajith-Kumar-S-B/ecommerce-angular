@@ -8,12 +8,16 @@ import { ToasterService } from '../services/toaster.service';
   styleUrls: ['./all-products.component.css']
 })
 export class AllProductsComponent implements OnInit{
+   searchString:string=""
     allProducts:any = []
     constructor(private api:ApiService,private toaster:ToasterService){}
 
     ngOnInit(): void {
       this.api.getAllProductsApi().subscribe((res:any)=>{
         this.allProducts = res
+      })
+      this.api.searchKey.subscribe((data:any)=>{
+        this.searchString = data
       })
     }
 

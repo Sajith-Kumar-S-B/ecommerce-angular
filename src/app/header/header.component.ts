@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit{
   loginUsername:string = ""
   wishlistCount:number = 0
   cartCount:number = 0
+
 constructor(private router:Router, private api:ApiService){}
   ngOnInit(): void {
     if(sessionStorage.getItem("username")){
@@ -36,5 +37,10 @@ constructor(private router:Router, private api:ApiService){}
     this.wishlistCount = 0
     this.cartCount = 0
    this.router.navigateByUrl("/")
+  }
+
+  getSearchKey(search:any){
+    console.log(search.value);
+    this.api.searchKey.next(search.value)
   }
 }

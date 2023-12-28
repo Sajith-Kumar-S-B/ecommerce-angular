@@ -9,6 +9,7 @@ export class ApiService {
 
   SERVER_URL = "http://localhost:3000"
   wishlistCount = new BehaviorSubject(0)
+  searchKey = new BehaviorSubject("")
   cartCount = new BehaviorSubject(0)
   constructor(private http:HttpClient) { 
     if(sessionStorage.getItem("token")){
@@ -99,4 +100,19 @@ export class ApiService {
     return this.http.get(`${this.SERVER_URL}/cart/decrement/${id}`,this.appendTokenToHeader())
 
   }
+
+
+  // remove cart item
+
+  removeCartItemApi(id:any){
+    return this.http.delete(`${this.SERVER_URL}/cart/remove/${id}`,this.appendTokenToHeader())
+
+  }
+
+  // empty cart
+  emptyCartApi(){
+    return this.http.delete(`${this.SERVER_URL}/cart/empty/`,this.appendTokenToHeader())
+
+  }
+
 }

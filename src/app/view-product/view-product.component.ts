@@ -28,7 +28,6 @@ export class ViewProductComponent implements OnInit{
     this.api.getAProductApi(id).subscribe({
       next:(res:any)=>{
           this.product = res
-          console.log(res);
           
       },
       error:(err:any)=>{

@@ -24,7 +24,7 @@
                 <tbody>
                     <tr *ngFor="let product of cartItems;let i=index;" >
                         <td>{{i+1}}</td>
-                        <td>{{product.title}}</td>
+                        <td>{{product.title.slice(0,20)}}</td>
                         <td><img width="100px" height="100px" [src]="product.image" alt="image"></td>
                        
                         <td>
@@ -35,18 +35,23 @@
                            </div>
                         </td>
                         <td>${{product.grandTotal}}</td>
-                        <td><button class="btn"><i class="fa-solid fa-trash text-danger"></i></button></td>
+                        <td><button (click)="removeCartItem(product._id)" class="btn"><i class="fa-solid fa-trash text-danger"></i></button></td>
                     </tr>
+                 
                 </tbody>
 
             </table>
+            <div class="actions border w-100">
+                <button (click)="emptyCart()" class="btn btn-outline-dark float-end">Empty Cart</button>
+                <button routerLink="" class="btn btn-outline-dark float-end me-2">Add More item</button>
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="border rounded p-3">
                 <h3>Sub Total : <span class="text-danger">${{cartTotalPrice}}</span></h3>
                 <hr>
                 <div class="d-grid">
-                    <button class="btn btn-primary">Check out</button>
+                    <button (click)="checkout()" class="btn btn-primary">Check out</button>
                 </div>
             </div>
         </div>

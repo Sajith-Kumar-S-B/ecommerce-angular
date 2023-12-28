@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { ToasterService } from '../services/toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +13,7 @@ export class CartComponent implements OnInit{
 
   cartItems:any = []
   cartTotalPrice:number = 0
-  constructor(private api:ApiService){}
+  constructor(private api:ApiService, private toaster:ToasterService,private router:Router){}
    ngOnInit(): void {
      if(sessionStorage.getItem("token")){
       this.getCart()
@@ -33,7 +35,7 @@ export class CartComponent implements OnInit{
     if(this.cartItems.length>0){
       let total = 0
       this.cartItems.forEach((product:any)=>{
-        total += product.grandTotal
+        total += product.grandTotal 
       })
      this.cartTotalPrice = Math.ceil(total)
     }else{
@@ -70,4 +72,40 @@ export class CartComponent implements OnInit{
      }
     })
  }
+
+
+//  remove cart item
+
+   removeCartItem(id:any){
+    this.api.removeCartItemApi(id).subscribe({
+      next:(res:any)=>{
+      this.toaster.showSuccess("Item deleted")
+      this.getCart()
+      this.api.getCartCount()
+      },
+      error:(err:any)=>{
+        console.log(err.error);
+
+      }
+    })
+   }
+
+
+  //  empty cart
+
+  emptyCart(){
+    this.api.emptyCartApi().subscribe((res:any)=>{
+      this.toaster.showWarning('Nothing in cart')
+      this.getCart()
+      this.api.getCartCount()
+
+    })
+  }
+
+  // checkout
+
+  checkout(){
+    sessionStorage.setItem("total",JSON.stringify(this.cartTotalPrice))
+    this.router.navigateByUrl("/user/checkout")
+  }
 }
